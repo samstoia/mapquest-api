@@ -1,0 +1,44 @@
+<form #directionsForm="ngForm" (ngSubmit)="onSubmit()">
+  
+  <div class="form-group">
+    <label for="orderAddress">Order Address</label>
+    {{ directionsForm.value | json }}
+    <hr>
+
+    {{ directionsModel | json }}
+    <input 
+      required 
+      name="orderAddress" 
+      #orderAddress="ngModel" 
+      id="orderAddress"
+      type="text" 
+      class="form-control"
+      [(ngModel)]="directionsModel.orderAddress">
+    <div 
+      class="alert alert-danger" 
+      *ngIf="orderAddress.touched && !orderAddress.valid">
+      Order Address is Required.
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="restaurantAddress">Restaurant Address</label>
+    <input 
+      required 
+      name="restaurantAddress"  
+      #restaurantAddress="ngModel" 
+      id="restaurantAddress"
+      type="text" 
+      class="form-control"
+      [(ngModel)]="directionsModel.restaurantAddress">
+    <div 
+      class="alert alert-danger" 
+      *ngIf="restaurantAddress.touched && !restaurantAddress.valid">
+          Restaurant Address is Required.
+    </div>
+  </div>
+  <button class="btn btn-primary">Submit</button>
+</form>
+
+<div *ngIf="directionsForm.submitted == true">
+<p> That route takes {{directionsModel.minutes}} minutes to drive</p>
+</div>
