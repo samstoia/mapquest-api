@@ -13,7 +13,7 @@ export class ApiService {
   }
 
   getApiMap(orderAddress, restaurantAddress) {
-    return this.http.get('https://www.mapquestapi.com/staticmap/v5/map?start=' + restaurantAddress + '&end=' + orderAddress + '&size=600,400@2x&key=' + apiKey, { responseType: "blob" });
+    return this.http.get('https://www.mapquestapi.com/staticmap/v5/map?start=' + restaurantAddress + '&end=' + orderAddress + '&zoom=12&size=600,400@2x&key=' + apiKey, { responseType: "blob" });
   }
 
 }
