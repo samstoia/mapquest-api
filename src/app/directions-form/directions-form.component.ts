@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Directions } from '../directions';
 import { ApiService } from '../api.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'directions-form',
@@ -9,11 +10,13 @@ import { ApiService } from '../api.service';
   providers: [ApiService]
 })
 export class DirectionsFormComponent {
-  constructor (private data: ApiService) {}
+  constructor (private data: ApiService, private mapCall: ApiService, private sanitizer: DomSanitizer) {}
   directions;
   directionsModel = new Directions("", "", 0);
   minutes;
+  mapImage;
   submitted = null;
+  imageUrl;
 
   onSubmit() {
     let punctuationlessOrder = this.directionsModel.orderAddress.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
@@ -34,6 +37,11 @@ export class DirectionsFormComponent {
       console.log(this.directionsModel.minutes);
       this.submitted = true;
     })
+
+    this.mapCall.getApiMap(finalOrderString, finalRestaurantString).subscribe(mapCall => { 
+       let blob = URL.createObjectURL(mapCall)
+       this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(blob);
+    })  
   }
 }
 

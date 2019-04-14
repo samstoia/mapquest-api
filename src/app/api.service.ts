@@ -12,4 +12,9 @@ export class ApiService {
     return this.http.get('https://www.mapquestapi.com/directions/v2/route?key=' + apiKey + '&from=' + orderAddress + '&to=' + restaurantAddress + '&outFormat=json&ambiguities=ignore&routeType=fastest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false');
   }
 
+  getApiMap(orderAddress, restaurantAddress) {
+    return this.http.get('https://www.mapquestapi.com/staticmap/v5/map?start=' + restaurantAddress + '&end=' + orderAddress + '&size=600,400@2x&key=' + apiKey, { responseType: "blob" });
+  }
+
 }
+
